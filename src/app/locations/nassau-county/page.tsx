@@ -18,10 +18,10 @@ const towns = [
 ];
 
 const services = [
-    { name: 'Commercial Auto Insurance', href: '/services/commercial-auto', desc: 'Fleet and commercial vehicle coverage' },
-    { name: 'Personal Auto Insurance', href: '/services/personal-auto', desc: 'Affordable car insurance' },
-    { name: 'Business Insurance', href: '/services/business', desc: 'Liability, property, and more' },
-    { name: 'Home Insurance', href: '/services/home', desc: 'Protect your biggest investment' },
+    { name: 'Commercial Auto Insurance', href: '/commercial-auto-insurance', desc: 'Fleet and commercial vehicle coverage' },
+    { name: 'Personal Auto Insurance', href: '/personal-auto-insurance', desc: 'Affordable car insurance' },
+    { name: 'Business Insurance', href: '/business-insurance', desc: 'Liability, property, and more' },
+    { name: 'Home Insurance', href: '/home-insurance', desc: 'Protect your biggest investment' },
 ];
 
 export default function NassauCountyPage() {

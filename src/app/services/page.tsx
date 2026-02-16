@@ -12,35 +12,35 @@ const services = [
     title: 'Commercial Auto Insurance',
     description: 'Exclusive coverage built for NY fleets. In-house underwriting, faster approvals, and coverage designed around how your fleet operates.',
     image: '/images/services/commercial.png',
-    href: '/services/commercial-auto',
+    href: '/commercial-auto-insurance',
     features: ['Fleet coverage 3-100+ vehicles', 'Local delivery & trucking', 'Construction & HVAC fleets'],
   },
   {
     title: 'Personal Auto Insurance',
     description: 'Drive confidently with affordable and dependable personal auto insurance for New York drivers. Save up to 30%.',
     image: '/images/services/auto.png',
-    href: '/services/personal-auto',
+    href: '/personal-auto-insurance',
     features: ['Full coverage options', 'Multi-policy discounts', 'SR22 coverage available'],
   },
   {
     title: 'Business Insurance',
     description: 'All-in-one business insurance with smart coverage, local expertise, and peace of mind for Long Island businesses.',
     image: '/images/services/business.png',
-    href: '/services/business',
+    href: '/business-insurance',
     features: ['General liability', 'Workers compensation', 'Commercial property'],
   },
   {
     title: 'Home Insurance',
     description: 'Protect your livelihood with affordable and dependable homeowners insurance in NY. Customized policies, expert guidance.',
     image: '/images/services/home.png',
-    href: '/services/home',
+    href: '/home-insurance',
     features: ['Standard & high-value homes', 'Flood insurance options', 'Personal property coverage'],
   },
   {
     title: 'Captive Insurance',
     description: 'Form your own licensed insurance company. Greater control, cost savings, and profit potential for mid-sized and growing companies.',
     image: '/images/services/business.png',
-    href: '/services/captive',
+    href: '/captive-insurance-company',
     features: ['Reduced total cost of risk', 'Retained profits', 'Custom underwriting'],
   },
 ];
@@ -69,9 +69,8 @@ export default function ServicesPage() {
             {services.map((service, index) => (
               <div
                 key={service.title}
-                className={`grid lg:grid-cols-2 gap-8 items-center ${
-                  index % 2 === 1 ? 'lg:flex-row-reverse' : ''
-                }`}
+                className={`grid lg:grid-cols-2 gap-8 items-center ${index % 2 === 1 ? 'lg:flex-row-reverse' : ''
+                  }`}
               >
                 <div className={index % 2 === 1 ? 'lg:order-2' : ''}>
                   <Image

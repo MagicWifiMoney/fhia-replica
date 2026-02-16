@@ -116,7 +116,7 @@ export default function AboutPage() {
               <Link href="/quote" className="btn-primary">
                 Get a Free Quote
               </Link>
-              <Link href="/contact" className="btn-outline">
+              <Link href="/contact-us" className="btn-outline">
                 Contact Us
               </Link>
             </div>

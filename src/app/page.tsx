@@ -7,25 +7,25 @@ const services = [
     title: 'Commercial Auto Insurance',
     description: 'Exclusive coverage for NY fleets. Faster approvals, smarter underwriting.',
     image: '/images/services/commercial.png',
-    href: '/services/commercial-auto',
+    href: '/commercial-auto-insurance',
   },
   {
     title: 'Personal Auto Insurance',
     description: 'Drive confidently with affordable, dependable coverage for NY drivers.',
     image: '/images/services/auto.png',
-    href: '/services/personal-auto',
+    href: '/personal-auto-insurance',
   },
   {
     title: 'Business Insurance',
     description: 'All-in-one coverage. Smart protection, local expertise, peace of mind.',
     image: '/images/services/business.png',
-    href: '/services/business',
+    href: '/business-insurance',
   },
   {
     title: 'Home Insurance',
     description: 'Protect your livelihood with affordable homeowners insurance in NY.',
     image: '/images/services/home.png',
-    href: '/services/home',
+    href: '/home-insurance',
   },
 ];
 
@@ -146,7 +146,7 @@ export default function Home() {
               <Link href="/quote" className="btn-primary text-lg">
                 Get a Free Quote
               </Link>
-              <Link href="/contact" className="btn-outline text-lg">
+              <Link href="/contact-us" className="btn-outline text-lg">
                 Speak to an Agent
               </Link>
             </div>
@@ -181,7 +181,7 @@ export default function Home() {
               <p className="text-gray-600 mb-6 leading-relaxed">
                 Licensed across NY, NJ, CT, PA &amp; FL with a focus on Long Island communities, we combine big-agency resources with a neighborhood mindset. No pressure, no red tape — just honest guidance from people who care.
               </p>
-              <Link href="/about" className="btn-primary inline-block">
+              <Link href="/about-us" className="btn-primary inline-block">
                 Learn More About Us
               </Link>
             </div>

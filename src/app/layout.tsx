@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ChatWidget from "@/components/ChatWidget";
+import { LocalBusinessSchema, WebSiteSchema, OrganizationSchema } from "@/components/StructuredData";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -18,6 +19,10 @@ const openSans = Open_Sans({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://fhia.net"),
+  alternates: {
+    canonical: "./",
+  },
   title: {
     default: "Long Island Insurance Agency - FHIA | Since 2003",
     template: "%s | First Heritage Insurance Agency",
@@ -77,6 +82,9 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} ${openSans.variable} font-open-sans antialiased`}
       >
+        <LocalBusinessSchema />
+        <WebSiteSchema />
+        <OrganizationSchema />
         <Header />
         <main>{children}</main>
         <Footer />
@@ -85,3 +93,4 @@ export default function RootLayout({
     </html>
   );
 }
+

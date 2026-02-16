@@ -15,6 +15,7 @@ import {
     getPagePathMap,
 } from '@/lib/wordpress';
 import WPContentRenderer from '@/components/WPContentRenderer';
+import { ArticleSchema, BreadcrumbSchema, InsuranceServiceSchema } from '@/components/StructuredData';
 
 export const revalidate = 3600;
 
@@ -136,6 +137,19 @@ async function BlogPostView({ post }: { post: Awaited<ReturnType<typeof getPostB
 
     return (
         <>
+            <ArticleSchema
+                title={title}
+                description={excerpt || ''}
+                url={`/${post.slug}`}
+                datePublished={post.date}
+                dateModified={post.modified}
+                image={featuredImage || undefined}
+            />
+            <BreadcrumbSchema items={[
+                { name: 'Home', href: '/' },
+                { name: 'Insights & Guides', href: '/blogs' },
+                { name: title, href: `/${post.slug}` },
+            ]} />
             <section className="bg-navy py-16 md:py-20">
                 <div className="container-custom">
                     <nav className="mb-6">
@@ -160,7 +174,7 @@ async function BlogPostView({ post }: { post: Awaited<ReturnType<typeof getPostB
                         <span>FHIA Insurance Team</span>
                     </div>
                 </div>
-            </section>
+            </section >
 
             <article className="py-16 md:py-20">
                 <div className="container-custom">
@@ -176,7 +190,7 @@ async function BlogPostView({ post }: { post: Awaited<ReturnType<typeof getPostB
                                 <h3 className="font-poppins text-xl font-bold text-white mb-3">Need Insurance Help?</h3>
                                 <p className="text-gray-300 text-sm mb-4">Our local experts have been protecting Long Island families and businesses since 2003.</p>
                                 <Link href="/quote" className="btn-primary block text-center mb-3">Get a Free Quote</Link>
-                                <Link href="/contact" className="btn-outline block text-center text-sm">Contact Us</Link>
+                                <Link href="/contact-us" className="btn-outline block text-center text-sm">Contact Us</Link>
                                 <div className="mt-6 pt-4 border-t border-white/10">
                                     <p className="text-gray-400 text-xs mb-1">Call us directly</p>
                                     <a href="tel:631-659-0189" className="text-gold font-semibold text-lg hover:underline">(631) 659-0189</a>
@@ -236,15 +250,26 @@ async function ServiceSubPageView({
     }
 
     const parentHrefMap: Record<string, string> = {
-        'commercial-auto-insurance': '/services/commercial-auto',
-        'personal-auto-insurance': '/services/personal-auto',
-        'home-insurance': '/services/home',
-        'business-insurance': '/services/business',
+        'commercial-auto-insurance': '/commercial-auto-insurance',
+        'personal-auto-insurance': '/personal-auto-insurance',
+        'home-insurance': '/home-insurance',
+        'business-insurance': '/business-insurance',
     };
     const parentHref = parentHrefMap[parentSlug] || '/services';
 
     return (
         <>
+            <InsuranceServiceSchema
+                name={title}
+                description={excerpt || ''}
+                url={`/${parentSlug}/${page.slug}`}
+            />
+            <BreadcrumbSchema items={[
+                { name: 'Home', href: '/' },
+                { name: 'Services', href: '/services' },
+                { name: parentTitle, href: parentHref },
+                { name: title, href: `/${parentSlug}/${page.slug}` },
+            ]} />
             <section className="bg-navy py-16 md:py-20">
                 <div className="container-custom">
                     <nav className="mb-4 flex items-center gap-2 text-sm">
@@ -277,7 +302,7 @@ async function ServiceSubPageView({
                                 <h3 className="font-poppins text-xl font-bold text-white mb-3">Get Protected Today</h3>
                                 <p className="text-gray-300 text-sm mb-4">Compare quotes from multiple carriers. Our local agents find you the best coverage at the best price.</p>
                                 <Link href="/quote" className="btn-primary block text-center mb-3">Get a Free Quote</Link>
-                                <Link href="/contact" className="btn-outline block text-center text-sm">Talk to an Agent</Link>
+                                <Link href="/contact-us" className="btn-outline block text-center text-sm">Talk to an Agent</Link>
                                 <div className="mt-6 pt-4 border-t border-white/10">
                                     <p className="text-gray-400 text-xs mb-1">Call us directly</p>
                                     <a href="tel:631-659-0189" className="text-gold font-semibold text-lg hover:underline">(631) 659-0189</a>
@@ -286,11 +311,11 @@ async function ServiceSubPageView({
                             <div className="bg-gray-50 rounded-xl p-6">
                                 <h3 className="font-poppins text-lg font-bold text-navy mb-4">Our Services</h3>
                                 <div className="space-y-2">
-                                    <Link href="/services/personal-auto" className="block text-gray-600 hover:text-gold transition-colors text-sm py-1">Personal Auto Insurance</Link>
-                                    <Link href="/services/commercial-auto" className="block text-gray-600 hover:text-gold transition-colors text-sm py-1">Commercial Auto Insurance</Link>
-                                    <Link href="/services/home" className="block text-gray-600 hover:text-gold transition-colors text-sm py-1">Home Insurance</Link>
-                                    <Link href="/services/business" className="block text-gray-600 hover:text-gold transition-colors text-sm py-1">Business Insurance</Link>
-                                    <Link href="/services/captive" className="block text-gray-600 hover:text-gold transition-colors text-sm py-1">Captive Insurance</Link>
+                                    <Link href="/personal-auto-insurance" className="block text-gray-600 hover:text-gold transition-colors text-sm py-1">Personal Auto Insurance</Link>
+                                    <Link href="/commercial-auto-insurance" className="block text-gray-600 hover:text-gold transition-colors text-sm py-1">Commercial Auto Insurance</Link>
+                                    <Link href="/home-insurance" className="block text-gray-600 hover:text-gold transition-colors text-sm py-1">Home Insurance</Link>
+                                    <Link href="/business-insurance" className="block text-gray-600 hover:text-gold transition-colors text-sm py-1">Business Insurance</Link>
+                                    <Link href="/captive-insurance-company" className="block text-gray-600 hover:text-gold transition-colors text-sm py-1">Captive Insurance</Link>
                                 </div>
                             </div>
                         </aside>

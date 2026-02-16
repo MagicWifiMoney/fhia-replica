@@ -132,7 +132,7 @@ export default function CaptiveInsurancePage() {
             Schedule a consultation to learn if a captive structure makes sense for your business.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/contact" className="btn-primary">
+            <Link href="/contact-us" className="btn-primary">
               Schedule Consultation
             </Link>
             <a href="tel:631-659-0189" className="btn-outline">

@@ -4,18 +4,18 @@ import Image from 'next/image';
 const footerLinks = {
   quickLinks: [
     { name: 'Home', href: '/' },
-    { name: 'About Us', href: '/about' },
+    { name: 'About Us', href: '/about-us' },
     { name: 'Services', href: '/services' },
     { name: 'Locations', href: '/locations' },
-    { name: 'Contact', href: '/contact' },
+    { name: 'Contact', href: '/contact-us' },
     { name: 'Get a Quote', href: '/quote' },
   ],
   services: [
-    { name: 'Commercial Auto Insurance', href: '/services/commercial-auto' },
-    { name: 'Personal Auto Insurance', href: '/services/personal-auto' },
-    { name: 'Business Insurance', href: '/services/business' },
-    { name: 'Home Insurance', href: '/services/home' },
-    { name: 'Captive Insurance', href: '/services/captive' },
+    { name: 'Commercial Auto Insurance', href: '/commercial-auto-insurance' },
+    { name: 'Personal Auto Insurance', href: '/personal-auto-insurance' },
+    { name: 'Business Insurance', href: '/business-insurance' },
+    { name: 'Home Insurance', href: '/home-insurance' },
+    { name: 'Captive Insurance', href: '/captive-insurance-company' },
   ],
 };
 
@@ -135,10 +135,10 @@ export default function Footer() {
             © {new Date().getFullYear()} First Heritage Insurance Agency. All rights reserved.
           </p>
           <div className="flex gap-6">
-            <Link href="/privacy" className="text-gray-400 hover:text-gold transition-colors text-sm">
+            <Link href="/privacy-policy" className="text-gray-400 hover:text-gold transition-colors text-sm">
               Privacy Policy
             </Link>
-            <Link href="/terms" className="text-gray-400 hover:text-gold transition-colors text-sm">
+            <Link href="/terms-conditions" className="text-gray-400 hover:text-gold transition-colors text-sm">
               Terms & Conditions
             </Link>
           </div>

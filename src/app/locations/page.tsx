@@ -89,7 +89,7 @@ export default function LocationsPage() {
                 </p>
               </div>
               <div className="flex gap-4 flex-wrap">
-                <Link href="/contact" className="btn-primary inline-block">
+                <Link href="/contact-us" className="btn-primary inline-block">
                   Contact Us
                 </Link>
                 <a

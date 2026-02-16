@@ -149,7 +149,7 @@ export default async function LocationSubPage({ params }: { params: Promise<{ pa
                                 <Link href="/quote" className="btn-primary block text-center mb-3">
                                     Get a Free Quote
                                 </Link>
-                                <Link href="/contact" className="btn-outline block text-center text-sm">
+                                <Link href="/contact-us" className="btn-outline block text-center text-sm">
                                     Visit Our Office
                                 </Link>
                                 <div className="mt-6 pt-4 border-t border-white/10">
