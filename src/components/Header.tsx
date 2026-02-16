@@ -19,7 +19,7 @@ const navigation = [
     ],
   },
   { name: 'Locations', href: '/locations' },
-  { name: 'Contact', href: '/contact' },
+  { name: 'Insights and Guides', href: '/blogs' },
 ];
 
 export default function Header() {
@@ -27,9 +27,9 @@ export default function Header() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   return (
-    <header className="bg-navy sticky top-0 z-50 shadow-lg">
-      {/* Top bar */}
-      <div className="bg-navy-700 py-2">
+    <header className="sticky top-0 z-50 shadow-lg">
+      {/* Top bar - navy */}
+      <div className="bg-navy py-2">
         <div className="container-custom flex justify-between items-center text-sm">
           <div className="flex items-center gap-4">
             <a href="https://instagram.com/firstheritage_insurance" target="_blank" rel="noopener noreferrer" className="text-white hover:text-gold transition-colors">
@@ -49,112 +49,114 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Main nav */}
-      <div className="container-custom py-4">
-        <div className="flex items-center justify-between">
-          <Link href="/" className="flex-shrink-0">
-            <Image
-              src="/images/logo.png"
-              alt="First Heritage Insurance Agency"
-              width={180}
-              height={70}
-              className="h-14 w-auto"
-              priority
-            />
-          </Link>
+      {/* Main nav - white background */}
+      <div className="bg-white py-4">
+        <div className="container-custom">
+          <div className="flex items-center justify-between">
+            <Link href="/" className="flex-shrink-0">
+              <Image
+                src="/images/logo.png"
+                alt="First Heritage Insurance Agency"
+                width={180}
+                height={70}
+                className="h-14 w-auto"
+                priority
+              />
+            </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-8">
-            {navigation.map((item) => (
-              <div
-                key={item.name}
-                className="relative"
-                onMouseEnter={() => item.children && setActiveDropdown(item.name)}
-                onMouseLeave={() => setActiveDropdown(null)}
-              >
-                <Link
-                  href={item.href}
-                  className="text-white hover:text-gold transition-colors font-medium flex items-center gap-1"
+            {/* Desktop nav */}
+            <nav className="hidden lg:flex items-center gap-8">
+              {navigation.map((item) => (
+                <div
+                  key={item.name}
+                  className="relative"
+                  onMouseEnter={() => item.children && setActiveDropdown(item.name)}
+                  onMouseLeave={() => setActiveDropdown(null)}
                 >
-                  {item.name}
-                  {item.children && (
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
+                  <Link
+                    href={item.href}
+                    className="text-navy hover:text-gold transition-colors font-medium flex items-center gap-1"
+                  >
+                    {item.name}
+                    {item.children && (
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    )}
+                  </Link>
+                  {item.children && activeDropdown === item.name && (
+                    <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-xl py-2 z-50 border border-gray-100">
+                      {item.children.map((child) => (
+                        <Link
+                          key={child.name}
+                          href={child.href}
+                          className="block px-4 py-2 text-navy hover:bg-gold-50 hover:text-gold-600 transition-colors"
+                        >
+                          {child.name}
+                        </Link>
+                      ))}
+                    </div>
                   )}
-                </Link>
-                {item.children && activeDropdown === item.name && (
-                  <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-xl py-2 z-50">
-                    {item.children.map((child) => (
-                      <Link
-                        key={child.name}
-                        href={child.href}
-                        className="block px-4 py-2 text-navy hover:bg-gold-50 hover:text-gold-600 transition-colors"
-                      >
-                        {child.name}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-            <Link href="/quote" className="btn-primary">
-              Get a Free Quote
-            </Link>
-          </nav>
+                </div>
+              ))}
+              <Link href="/quote" className="btn-secondary">
+                Get a Quote
+              </Link>
+            </nav>
 
-          {/* Mobile menu button */}
-          <button
-            className="lg:hidden text-white p-2"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              {mobileMenuOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              )}
-            </svg>
-          </button>
-        </div>
-
-        {/* Mobile nav */}
-        {mobileMenuOpen && (
-          <nav className="lg:hidden mt-4 pb-4 border-t border-navy-600 pt-4">
-            {navigation.map((item) => (
-              <div key={item.name}>
-                <Link
-                  href={item.href}
-                  className="block py-2 text-white hover:text-gold transition-colors font-medium"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
-                {item.children && (
-                  <div className="pl-4">
-                    {item.children.map((child) => (
-                      <Link
-                        key={child.name}
-                        href={child.href}
-                        className="block py-2 text-gray-300 hover:text-gold transition-colors text-sm"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        {child.name}
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-            <Link
-              href="/quote"
-              className="btn-primary inline-block mt-4"
-              onClick={() => setMobileMenuOpen(false)}
+            {/* Mobile menu button */}
+            <button
+              className="lg:hidden text-navy p-2"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
-              Get a Free Quote
-            </Link>
-          </nav>
-        )}
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                {mobileMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
+          </div>
+
+          {/* Mobile nav */}
+          {mobileMenuOpen && (
+            <nav className="lg:hidden mt-4 pb-4 border-t border-gray-200 pt-4">
+              {navigation.map((item) => (
+                <div key={item.name}>
+                  <Link
+                    href={item.href}
+                    className="block py-2 text-navy hover:text-gold transition-colors font-medium"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                  {item.children && (
+                    <div className="pl-4">
+                      {item.children.map((child) => (
+                        <Link
+                          key={child.name}
+                          href={child.href}
+                          className="block py-2 text-gray-500 hover:text-gold transition-colors text-sm"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          {child.name}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+              <Link
+                href="/quote"
+                className="btn-secondary inline-block mt-4"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Get a Quote
+              </Link>
+            </nav>
+          )}
+        </div>
       </div>
     </header>
   );

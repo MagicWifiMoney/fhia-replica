@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import type { Metadata } from 'next';
+import ContactForm from '@/components/ContactForm';
 
 export const metadata: Metadata = {
   title: 'Contact FHIA Insurance | Melville NY Office',
@@ -8,25 +8,38 @@ export const metadata: Metadata = {
 
 const contactMethods = [
   {
-    icon: '📞',
     title: 'Call Us',
     description: 'Speak directly with an agent',
     value: '631-659-0189',
     href: 'tel:631-659-0189',
+    icon: (
+      <svg className="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+      </svg>
+    ),
   },
   {
-    icon: '✉️',
     title: 'Email Us',
     description: 'We respond within 24 hours',
     value: 'service@fhia.net',
     href: 'mailto:service@fhia.net',
+    icon: (
+      <svg className="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+      </svg>
+    ),
   },
   {
-    icon: '📍',
     title: 'Visit Us',
     description: 'Our Melville office',
-    value: '324 S. Service Rd, Suite 101, Melville, NY 11747',
-    href: 'https://maps.google.com/?q=324+S+Service+Rd+Suite+101+Melville+NY+11747',
+    value: '150 Broadhollow Rd, Suite 10, Melville, NY 11747',
+    href: 'https://www.google.com/maps/dir//150+Broadhollow+Rd+Suite+10+Melville+NY+11747',
+    icon: (
+      <svg className="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+      </svg>
+    ),
   },
 ];
 
@@ -50,7 +63,7 @@ export default function ContactPage() {
               Connect with New York&apos;s Trusted Insurance Experts
             </h1>
             <p className="text-gray-300 text-lg">
-              Tailored coverage for New York drivers, families & businesses. We&apos;re here to help with policy details, quotes, claims, and more.
+              Tailored coverage for New York drivers, families &amp; businesses. We&apos;re here to help with policy details, quotes, claims, and more.
             </p>
           </div>
         </div>
@@ -68,7 +81,7 @@ export default function ContactPage() {
                 rel={method.href.startsWith('https') ? 'noopener noreferrer' : undefined}
                 className="bg-white border border-gray-200 rounded-xl p-8 text-center hover:shadow-lg transition-all hover:-translate-y-1"
               >
-                <div className="text-5xl mb-4">{method.icon}</div>
+                <div className="flex justify-center mb-4">{method.icon}</div>
                 <h3 className="font-poppins font-semibold text-xl text-navy mb-2">
                   {method.title}
                 </h3>
@@ -85,90 +98,7 @@ export default function ContactPage() {
               <h2 className="font-poppins text-2xl font-bold text-navy mb-6">
                 Send Us a Message
               </h2>
-              <form className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">
-                      First Name *
-                    </label>
-                    <input
-                      type="text"
-                      id="firstName"
-                      name="firstName"
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold outline-none transition-colors"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">
-                      Last Name *
-                    </label>
-                    <input
-                      type="text"
-                      id="lastName"
-                      name="lastName"
-                      required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold outline-none transition-colors"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                    Email *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold outline-none transition-colors"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                    Phone
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold outline-none transition-colors"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
-                    Subject *
-                  </label>
-                  <select
-                    id="subject"
-                    name="subject"
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold outline-none transition-colors"
-                  >
-                    <option value="">Select a topic...</option>
-                    <option value="quote">Request a Quote</option>
-                    <option value="policy">Policy Question</option>
-                    <option value="claim">Claims Help</option>
-                    <option value="billing">Billing Inquiry</option>
-                    <option value="other">Other</option>
-                  </select>
-                </div>
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                    Message *
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={4}
-                    required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gold focus:border-gold outline-none transition-colors resize-none"
-                  ></textarea>
-                </div>
-                <button type="submit" className="btn-primary w-full">
-                  Send Message
-                </button>
-              </form>
+              <ContactForm />
             </div>
 
             {/* Help Topics */}

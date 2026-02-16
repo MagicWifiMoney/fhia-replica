@@ -17,12 +17,14 @@ const locations = [
   {
     name: 'Suffolk County',
     description: 'Our home base since 2003. Serving Melville, Smithtown, Hauppauge, Commack, and surrounding areas.',
-    areas: ['Melville', 'Smithtown', 'Hauppauge', 'Commack', 'Huntington'],
+    areas: ['Melville', 'Smithtown', 'Hauppauge', 'Commack', 'Huntington', 'Babylon', 'Islip', 'Brookhaven'],
+    href: '/locations/suffolk-county',
   },
   {
     name: 'Nassau County',
     description: 'Serving one of Long Island\'s most densely populated counties with personalized insurance solutions.',
-    areas: ['Garden City', 'Carle Place', 'Hicksville', 'Massapequa', 'Mineola'],
+    areas: ['Garden City', 'Carle Place', 'Hicksville', 'Massapequa', 'Mineola', 'Freeport', 'Hempstead', 'Levittown'],
+    href: '/locations/nassau-county',
   },
 ];
 
@@ -77,7 +79,7 @@ export default function LocationsPage() {
               </p>
               <div className="bg-gray-50 rounded-xl p-6 mb-6">
                 <p className="font-semibold text-navy mb-2">First Heritage Insurance Agency</p>
-                <p className="text-gray-600">324 S. Service Rd, Suite 101</p>
+                <p className="text-gray-600">150 Broadhollow Rd, Suite 10</p>
                 <p className="text-gray-600">Melville, NY 11747</p>
                 <p className="text-gray-600 mt-4">
                   <a href="tel:631-659-0189" className="text-gold hover:underline">631-659-0189</a>
@@ -86,12 +88,33 @@ export default function LocationsPage() {
                   <a href="mailto:service@fhia.net" className="text-gold hover:underline">service@fhia.net</a>
                 </p>
               </div>
-              <Link href="/contact" className="btn-primary inline-block">
-                Contact Us
-              </Link>
+              <div className="flex gap-4 flex-wrap">
+                <Link href="/contact" className="btn-primary inline-block">
+                  Contact Us
+                </Link>
+                <a
+                  href="https://www.google.com/maps/dir//150+Broadhollow+Rd+Suite+10+Melville+NY+11747"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-outline inline-block"
+                >
+                  Get Directions
+                </a>
+              </div>
             </div>
-            <div className="bg-gray-100 rounded-xl h-80 flex items-center justify-center">
-              <p className="text-gray-500">Map coming soon</p>
+            {/* Google Maps Embed */}
+            <div className="rounded-xl overflow-hidden shadow-lg">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.5!2d-73.415!3d40.785!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e8282e9f8a3a3b%3A0x123456789!2s150+Broadhollow+Rd+Suite+10%2C+Melville%2C+NY+11747!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
+                width="100%"
+                height="320"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="First Heritage Insurance Agency - Melville, NY Office"
+                className="w-full"
+              />
             </div>
           </div>
 
@@ -101,8 +124,12 @@ export default function LocationsPage() {
           </h2>
           <div className="grid md:grid-cols-2 gap-8 mb-16">
             {locations.map((location) => (
-              <div key={location.name} className="bg-white border border-gray-200 rounded-xl p-8 hover:shadow-lg transition-shadow">
-                <h3 className="font-poppins text-2xl font-bold text-navy mb-3">
+              <Link
+                key={location.name}
+                href={location.href}
+                className="bg-white border border-gray-200 rounded-xl p-8 hover:shadow-lg transition-all hover:-translate-y-1 group"
+              >
+                <h3 className="font-poppins text-2xl font-bold text-navy mb-3 group-hover:text-gold transition-colors">
                   {location.name}
                 </h3>
                 <p className="text-gray-600 mb-4">{location.description}</p>
@@ -113,7 +140,13 @@ export default function LocationsPage() {
                     </span>
                   ))}
                 </div>
-              </div>
+                <span className="text-gold font-semibold text-sm inline-flex items-center gap-1 mt-4 group-hover:gap-2 transition-all">
+                  View Details
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </span>
+              </Link>
             ))}
           </div>
 

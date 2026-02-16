@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import TestimonialsCarousel from '@/components/TestimonialsCarousel';
 
 const services = [
   {
@@ -30,65 +31,59 @@ const services = [
 
 const features = [
   {
-    icon: '🛡️',
     title: 'Dependable Protection',
     description: 'Coverage you can count on when you need it most.',
+    icon: (
+      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+      </svg>
+    ),
   },
   {
-    icon: '🤝',
     title: 'Honest Guidance',
     description: 'Clear explanations without pressure or jargon.',
+    icon: (
+      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+      </svg>
+    ),
   },
   {
-    icon: '👥',
     title: 'Real People Who Care',
     description: 'Work with local agents who know your community.',
+    icon: (
+      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+      </svg>
+    ),
   },
   {
-    icon: '⚡',
     title: 'Quick Response Times',
     description: 'Same-day quotes and fast claim support.',
+    icon: (
+      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+      </svg>
+    ),
   },
   {
-    icon: '💰',
     title: 'Competitive Rates',
     description: 'Compare top carriers to find the best value.',
+    icon: (
+      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
   },
   {
-    icon: '✨',
     title: 'Personalized Service',
     description: 'Big-agency resources with neighborhood mindset.',
+    icon: (
+      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+      </svg>
+    ),
   },
-];
-
-const testimonials = [
-  {
-    name: 'Jamira Minton',
-    type: 'Home Insurance',
-    quote: "John's team made finding home insurance so easy. They compared multiple options and found me great coverage at a price I could afford.",
-    rating: 5,
-    image: '/images/testimonials/testimonial01.webp',
-  },
-  {
-    name: 'Anthony Wofford',
-    type: 'Auto Insurance',
-    quote: "Kyle was incredibly helpful throughout the entire process. Got me covered quickly and saved me money compared to my old policy.",
-    rating: 5,
-    image: '/images/testimonials/testimonial02.webp',
-  },
-  {
-    name: 'Christian Raphael',
-    type: 'Business Insurance',
-    quote: "Brandon Blood took care of everything for my business. Professional, responsive, and got me exactly what I needed.",
-    rating: 5,
-    image: '/images/testimonials/testimonial03.webp',
-  },
-];
-
-const trustBadges = [
-  { icon: '✓', text: 'Licensed & Insured' },
-  { icon: '✓', text: '20+ Years in Business' },
-  { icon: '✓', text: 'Proudly Serving Long Island & Beyond' },
 ];
 
 export default function Home() {
@@ -96,11 +91,18 @@ export default function Home() {
     <>
       {/* Hero Section */}
       <section className="relative bg-navy min-h-[600px] flex items-center">
-        <div className="absolute inset-0 bg-gradient-to-r from-navy/95 to-navy/70 z-10" />
-        <div 
+        {/* Background image */}
+        <div
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: 'url(/images/backgrounds/hero-bg.webp)' }}
         />
+        {/* Gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-navy/95 to-navy/70 z-10" />
+        {/* Hexagonal pattern overlay */}
+        <div className="absolute inset-0 z-10 opacity-[0.04]" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l10.99 6.34 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }} />
+
         <div className="container-custom relative z-20 py-20">
           <div className="max-w-3xl">
             <div className="flex items-center gap-2 mb-4">
@@ -113,7 +115,7 @@ export default function Home() {
               </div>
               <span className="text-white text-sm">4.9 Rating • 1000+ 5-Star Reviews</span>
             </div>
-            
+
             <h1 className="font-poppins text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 leading-tight">
               Long Island Insurance Agency in Melville, NY
             </h1>
@@ -124,12 +126,18 @@ export default function Home() {
             <p className="text-gray-300 text-lg mb-6">
               Licensed. Experienced. Focused on What Matters Most — You.
             </p>
-            
+
             <div className="flex flex-wrap gap-4 mb-8">
-              {trustBadges.map((badge) => (
-                <div key={badge.text} className="flex items-center gap-2 text-white">
-                  <span className="text-gold font-bold">{badge.icon}</span>
-                  <span className="text-sm">{badge.text}</span>
+              {[
+                'Licensed & Insured',
+                '20+ Years in Business',
+                'Proudly Serving Long Island & Beyond',
+              ].map((text) => (
+                <div key={text} className="flex items-center gap-2 text-white">
+                  <svg className="w-5 h-5 text-gold flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  <span className="text-sm">{text}</span>
                 </div>
               ))}
             </div>
@@ -171,7 +179,7 @@ export default function Home() {
                 For over 20 years, we&apos;ve been serving families, individuals, and business owners across Long Island with personalized insurance solutions.
               </p>
               <p className="text-gray-600 mb-6 leading-relaxed">
-                Licensed across NY, NJ, CT, PA & FL with a focus on Long Island communities, we combine big-agency resources with a neighborhood mindset. No pressure, no red tape — just honest guidance from people who care.
+                Licensed across NY, NJ, CT, PA &amp; FL with a focus on Long Island communities, we combine big-agency resources with a neighborhood mindset. No pressure, no red tape — just honest guidance from people who care.
               </p>
               <Link href="/about" className="btn-primary inline-block">
                 Learn More About Us
@@ -253,8 +261,8 @@ export default function Home() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature) => (
-              <div key={feature.title} className="text-center p-6">
-                <div className="text-5xl mb-4">{feature.icon}</div>
+              <div key={feature.title} className="text-center p-6 rounded-xl hover:bg-white/5 transition-colors">
+                <div className="text-gold mb-4 flex justify-center">{feature.icon}</div>
                 <h3 className="font-poppins font-semibold text-xl text-white mb-2">
                   {feature.title}
                 </h3>
@@ -265,47 +273,71 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-20 bg-gray-50">
+      {/* Testimonials Section - Carousel */}
+      <TestimonialsCarousel />
+
+      {/* Blog / Insights Section */}
+      <section className="py-20 bg-white">
         <div className="container-custom">
           <div className="text-center mb-12">
             <h2 className="font-poppins text-3xl md:text-4xl font-bold text-navy mb-4">
-              What Our Clients Say
+              Insurance Insights for New York Businesses &amp; Families
             </h2>
-            <p className="text-gray-600">
-              Don&apos;t just take our word for it — hear from real customers.
+            <p className="text-gray-600 max-w-2xl mx-auto">
+              Stay informed with expert advice, industry updates, and practical guides.
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial) => (
-              <div
-                key={testimonial.name}
-                className="bg-white p-8 rounded-xl shadow-lg"
+            {[
+              {
+                title: 'General Liability Insurance in Long Island vs E&O: What\u2019s the Difference?',
+                category: 'Business Insurance',
+                href: '/blogs/general-liability-vs-eo',
+              },
+              {
+                title: 'Windstorm Insurance in Long Island: How Deductibles Work and What to Expect',
+                category: 'Home Insurance',
+                href: '/blogs/windstorm-insurance-deductibles',
+              },
+              {
+                title: 'Commercial Auto Insurance in Long Island: What Your Policy Covers',
+                category: 'Commercial Auto',
+                href: '/blogs/commercial-auto-coverage',
+              },
+            ].map((post) => (
+              <Link
+                key={post.title}
+                href={post.href}
+                className="group bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
               >
-                <div className="flex text-gold mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <svg key={i} className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
-                </div>
-                <p className="text-gray-600 mb-6 italic">&ldquo;{testimonial.quote}&rdquo;</p>
-                <div className="flex items-center gap-4">
-                  <Image
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    width={50}
-                    height={50}
-                    className="rounded-full"
-                  />
-                  <div>
-                    <p className="font-semibold text-navy">{testimonial.name}</p>
-                    <p className="text-sm text-gray-500">{testimonial.type}</p>
+                <div className="aspect-[16/9] relative overflow-hidden bg-navy">
+                  <div className="absolute inset-0 bg-gradient-to-br from-navy via-navy-600 to-gold/20 flex items-center justify-center">
+                    <span className="text-gold text-sm font-semibold uppercase tracking-wider">{post.category}</span>
                   </div>
                 </div>
-              </div>
+                <div className="p-6">
+                  <span className="bg-gold/10 text-gold-600 text-xs font-semibold px-3 py-1 rounded-full">
+                    {post.category}
+                  </span>
+                  <h3 className="font-poppins font-semibold text-lg text-navy mt-3 mb-3 group-hover:text-gold transition-colors leading-tight">
+                    {post.title}
+                  </h3>
+                  <span className="text-gold font-semibold text-sm inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                    Read More
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </span>
+                </div>
+              </Link>
             ))}
+          </div>
+
+          <div className="text-center mt-10">
+            <Link href="/blogs" className="btn-secondary inline-block">
+              View All Insights
+            </Link>
           </div>
         </div>
       </section>
