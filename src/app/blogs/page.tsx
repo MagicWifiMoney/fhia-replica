@@ -1,48 +1,26 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import type { Metadata } from 'next';
+import {
+    getAllPosts,
+    getTitle,
+    getExcerpt,
+    getFeaturedImage,
+    getCategoryMap,
+} from '@/lib/wordpress';
+
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
     title: 'Insurance Insights and Guides - Personal and Commercial Insurance | Melville, NY | First Heritage Insurance Agency',
     description: 'Expert insurance insights for New York businesses and families. Learn about commercial auto, home, business, and personal insurance from FHIA.',
 };
 
-const blogPosts = [
-    {
-        title: 'General Liability Insurance in Long Island vs E&O: What\'s the Difference?',
-        excerpt: 'Understanding the key differences between general liability and errors & omissions insurance is critical for Long Island businesses. Learn which coverage your company needs.',
-        image: '/images/blog/liability-vs-eo.webp',
-        date: 'January 15, 2025',
-        category: 'Business Insurance',
-        href: '/blogs/general-liability-vs-eo',
-    },
-    {
-        title: 'Windstorm Insurance in Long Island: How Deductibles Work and What to Expect',
-        excerpt: 'Long Island homeowners face unique windstorm risks. Discover how windstorm deductibles work and what to expect when filing a claim.',
-        image: '/images/blog/windstorm-insurance.webp',
-        date: 'January 8, 2025',
-        category: 'Home Insurance',
-        href: '/blogs/windstorm-insurance-deductibles',
-    },
-    {
-        title: 'Commercial Auto Insurance in Long Island: What Your Policy Covers',
-        excerpt: 'From liability to comprehensive coverage, learn exactly what your commercial auto policy includes and what gaps you might need to fill.',
-        image: '/images/blog/commercial-auto-coverage.webp',
-        date: 'December 20, 2024',
-        category: 'Commercial Auto',
-        href: '/blogs/commercial-auto-coverage',
-    },
-    {
-        title: 'SR-22 Insurance in Long Island: What It Means and Who Needs It',
-        excerpt: 'If you\'ve been told you need SR-22 insurance, don\'t panic. Here\'s everything Long Island drivers need to know about SR-22 filing.',
-        image: '/images/blog/sr22-insurance.webp',
-        date: 'December 12, 2024',
-        category: 'Personal Auto',
-        href: '/blogs/sr22-insurance-guide',
-    },
-];
+export default async function BlogsPage() {
+    const [posts, categoryMap] = await Promise.all([
+        getAllPosts(),
+        getCategoryMap(),
+    ]);
 
-export default function BlogsPage() {
     return (
         <>
             {/* Hero Section */}
@@ -66,7 +44,7 @@ export default function BlogsPage() {
             <section className="py-8 bg-gray-50 border-b">
                 <div className="container-custom">
                     <p className="text-navy font-poppins font-semibold text-lg">
-                        Exclusive Content for You
+                        Exclusive Content for You — {posts.length} Articles
                     </p>
                 </div>
             </section>
@@ -75,41 +53,64 @@ export default function BlogsPage() {
             <section className="py-16 bg-gray-50">
                 <div className="container-custom">
                     <div className="grid md:grid-cols-2 gap-8">
-                        {blogPosts.map((post) => (
-                            <Link
-                                key={post.title}
-                                href={post.href}
-                                className="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100"
-                            >
-                                <div className="aspect-[16/9] relative overflow-hidden bg-navy">
-                                    <div className="absolute inset-0 bg-gradient-to-br from-navy via-navy-600 to-gold/20 flex items-center justify-center">
-                                        <div className="text-center px-6">
-                                            <span className="text-gold text-sm font-semibold uppercase tracking-wider">{post.category}</span>
+                        {posts.map((post) => {
+                            const title = getTitle(post);
+                            const excerpt = getExcerpt(post);
+                            const image = getFeaturedImage(post);
+                            const category = post.categories
+                                .map((id) => categoryMap.get(id)?.name)
+                                .filter(Boolean)
+                                .join(', ') || 'Insurance';
+                            const formattedDate = new Date(post.date).toLocaleDateString('en-US', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric',
+                            });
+
+                            return (
+                                <Link
+                                    key={post.id}
+                                    href={`/${post.slug}`}
+                                    className="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100"
+                                >
+                                    <div className="aspect-[16/9] relative overflow-hidden bg-navy">
+                                        {image ? (
+                                            <img
+                                                src={image}
+                                                alt={title}
+                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                            />
+                                        ) : (
+                                            <div className="absolute inset-0 bg-gradient-to-br from-navy via-navy-600 to-gold/20 flex items-center justify-center">
+                                                <div className="text-center px-6">
+                                                    <span className="text-gold text-sm font-semibold uppercase tracking-wider">{category}</span>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className="p-6">
+                                        <div className="flex items-center gap-3 mb-3">
+                                            <span className="bg-gold/10 text-gold-600 text-xs font-semibold px-3 py-1 rounded-full">
+                                                {category}
+                                            </span>
+                                            <span className="text-gray-400 text-sm">{formattedDate}</span>
                                         </div>
-                                    </div>
-                                </div>
-                                <div className="p-6">
-                                    <div className="flex items-center gap-3 mb-3">
-                                        <span className="bg-gold/10 text-gold-600 text-xs font-semibold px-3 py-1 rounded-full">
-                                            {post.category}
+                                        <h2 className="font-poppins font-semibold text-xl text-navy mb-3 group-hover:text-gold transition-colors leading-tight">
+                                            {title}
+                                        </h2>
+                                        <p className="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
+                                            {excerpt}
+                                        </p>
+                                        <span className="text-gold font-semibold text-sm inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                                            Read More
+                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                            </svg>
                                         </span>
-                                        <span className="text-gray-400 text-sm">{post.date}</span>
                                     </div>
-                                    <h2 className="font-poppins font-semibold text-xl text-navy mb-3 group-hover:text-gold transition-colors leading-tight">
-                                        {post.title}
-                                    </h2>
-                                    <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                                        {post.excerpt}
-                                    </p>
-                                    <span className="text-gold font-semibold text-sm inline-flex items-center gap-1 group-hover:gap-2 transition-all">
-                                        Read More
-                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                                        </svg>
-                                    </span>
-                                </div>
-                            </Link>
-                        ))}
+                                </Link>
+                            );
+                        })}
                     </div>
                 </div>
             </section>
