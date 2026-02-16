@@ -16,6 +16,9 @@ import {
 } from '@/lib/wordpress';
 import WPContentRenderer from '@/components/WPContentRenderer';
 import { ArticleSchema, BreadcrumbSchema, InsuranceServiceSchema } from '@/components/StructuredData';
+import { getCityBySlug, getIndustryBySlug, getAllPSEOSlugs } from '@/lib/pseo-commercial-auto';
+import CityPage from '@/components/pseo/CityPage';
+import IndustryPage from '@/components/pseo/IndustryPage';
 
 export const revalidate = 3600;
 
@@ -50,7 +53,10 @@ export async function generateStaticParams() {
         }
     }
 
-    return [...postParams, ...pageParams];
+    // pSEO pages → two segments under commercial-auto-insurance
+    const pseoParams = getAllPSEOSlugs().map((s) => ({ slug: ['commercial-auto-insurance', s] }));
+
+    return [...postParams, ...pageParams, ...pseoParams];
 }
 
 export async function generateMetadata({ params }: CatchAllPageProps): Promise<Metadata> {
@@ -79,7 +85,23 @@ export async function generateMetadata({ params }: CatchAllPageProps): Promise<M
     }
 
     if (slug.length === 2 && SERVICE_PARENTS.has(slug[0])) {
-        // Service sub-page
+        // pSEO city/industry page
+        if (slug[0] === 'commercial-auto-insurance') {
+            const city = getCityBySlug(slug[1]);
+            if (city) {
+                const title = `Commercial Auto Insurance in ${city.name}, NY | FHIA`;
+                const description = `Compare commercial auto and fleet insurance quotes for ${city.name}, ${city.county} County. Local expertise, in-house underwriting, competitive rates.`;
+                return { title, description, openGraph: { title, description } };
+            }
+            const industry = getIndustryBySlug(slug[1]);
+            if (industry) {
+                const title = `${industry.name} Commercial Auto Insurance — Long Island | FHIA`;
+                const description = industry.description.slice(0, 155) + '…';
+                return { title, description, openGraph: { title, description } };
+            }
+        }
+
+        // Service sub-page (WP)
         const page = await getPageByPath(`/${slug.join('/')}`);
         if (!page) return { title: 'Page Not Found' };
         const title = `${getTitle(page)} | FHIA Insurance`;
@@ -106,6 +128,15 @@ export default async function CatchAllPage({ params }: CatchAllPageProps) {
 
     // ── Service sub-page (two segments) ──
     if (slug.length === 2 && SERVICE_PARENTS.has(slug[0])) {
+        // Check pSEO first (no API call needed)
+        if (slug[0] === 'commercial-auto-insurance') {
+            const city = getCityBySlug(slug[1]);
+            if (city) return <CityPage city={city} />;
+            const industry = getIndustryBySlug(slug[1]);
+            if (industry) return <IndustryPage industry={industry} />;
+        }
+
+        // Fall through to WP
         const page = await getPageByPath(`/${slug.join('/')}`);
         if (!page) notFound();
         return <ServiceSubPageView page={page} parentSlug={slug[0]} />;

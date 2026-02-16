@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { getAllPosts, getAllPages, getPagePathMap } from '@/lib/wordpress';
+import { CITIES, INDUSTRIES } from '@/lib/pseo-commercial-auto';
 
 const BASE_URL = 'https://fhia.net';
 
@@ -78,5 +79,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             };
         });
 
-    return [...staticPages, ...postPages, ...serviceSubPages, ...locationSubPages];
+    // ── pSEO pages ──
+    const pseoPages = [
+        ...CITIES.map((city) => ({
+            url: `${BASE_URL}/commercial-auto-insurance/${city.slug}/`,
+            changeFrequency: 'monthly' as const,
+            priority: 0.8,
+        })),
+        ...INDUSTRIES.map((industry) => ({
+            url: `${BASE_URL}/commercial-auto-insurance/${industry.slug}/`,
+            changeFrequency: 'monthly' as const,
+            priority: 0.8,
+        })),
+    ];
+
+    return [...staticPages, ...postPages, ...serviceSubPages, ...locationSubPages, ...pseoPages];
 }
