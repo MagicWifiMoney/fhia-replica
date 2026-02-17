@@ -3,6 +3,10 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
+import { CITIES, INDUSTRIES } from '@/lib/pseo-commercial-auto';
+
+const nassauCities = CITIES.filter(c => c.county === 'Nassau');
+const suffolkCities = CITIES.filter(c => c.county === 'Suffolk');
 
 const navigation = [
   { name: 'Home', href: '/' },
@@ -11,7 +15,7 @@ const navigation = [
     name: 'Services',
     href: '/services',
     children: [
-      { name: 'Commercial Auto Insurance', href: '/commercial-auto-insurance' },
+      { name: 'Commercial Auto Insurance', href: '/commercial-auto-insurance', hasMega: true },
       { name: 'Personal Auto Insurance', href: '/personal-auto-insurance' },
       { name: 'Business Insurance', href: '/business-insurance' },
       { name: 'Home Insurance', href: '/home-insurance' },
@@ -25,6 +29,8 @@ const navigation = [
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [megaMenuOpen, setMegaMenuOpen] = useState(false);
+  const [mobileCommAutoOpen, setMobileCommAutoOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 shadow-lg">
@@ -71,7 +77,7 @@ export default function Header() {
                   key={item.name}
                   className="relative"
                   onMouseEnter={() => item.children && setActiveDropdown(item.name)}
-                  onMouseLeave={() => setActiveDropdown(null)}
+                  onMouseLeave={() => { setActiveDropdown(null); setMegaMenuOpen(false); }}
                 >
                   <Link
                     href={item.href}
@@ -85,15 +91,91 @@ export default function Header() {
                     )}
                   </Link>
                   {item.children && activeDropdown === item.name && (
-                    <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-xl py-2 z-50 border border-gray-100">
+                    <div className="absolute top-full left-0 mt-2 w-72 bg-white rounded-lg shadow-xl py-2 z-50 border border-gray-100">
                       {item.children.map((child) => (
-                        <Link
+                        <div
                           key={child.name}
-                          href={child.href}
-                          className="block px-4 py-2 text-navy hover:bg-gold-50 hover:text-gold-600 transition-colors"
+                          className="relative"
+                          onMouseEnter={() => child.hasMega && setMegaMenuOpen(true)}
+                          onMouseLeave={() => child.hasMega && setMegaMenuOpen(false)}
                         >
-                          {child.name}
-                        </Link>
+                          <Link
+                            href={child.href}
+                            className="flex items-center justify-between px-4 py-2 text-navy hover:bg-gold/5 hover:text-gold transition-colors"
+                          >
+                            {child.name}
+                            {child.hasMega && (
+                              <svg className="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                              </svg>
+                            )}
+                          </Link>
+                          {/* Mega-menu flyout for Commercial Auto */}
+                          {child.hasMega && megaMenuOpen && (
+                            <div className="absolute top-0 left-full ml-1 w-[720px] bg-white rounded-lg shadow-2xl border border-gray-100 p-6 z-50">
+                              <div className="grid grid-cols-3 gap-6">
+                                {/* Nassau County */}
+                                <div>
+                                  <h4 className="font-poppins text-xs font-bold text-gold uppercase tracking-wider mb-3 border-b border-gold/20 pb-2">
+                                    Nassau County
+                                  </h4>
+                                  <div className="space-y-1">
+                                    {nassauCities.map(city => (
+                                      <Link
+                                        key={city.slug}
+                                        href={`/commercial-auto-insurance/${city.slug}`}
+                                        className="block text-sm text-gray-600 hover:text-gold hover:bg-gold/5 rounded px-2 py-1 transition-colors"
+                                      >
+                                        {city.name}
+                                      </Link>
+                                    ))}
+                                  </div>
+                                </div>
+                                {/* Suffolk County */}
+                                <div>
+                                  <h4 className="font-poppins text-xs font-bold text-gold uppercase tracking-wider mb-3 border-b border-gold/20 pb-2">
+                                    Suffolk County
+                                  </h4>
+                                  <div className="space-y-1">
+                                    {suffolkCities.map(city => (
+                                      <Link
+                                        key={city.slug}
+                                        href={`/commercial-auto-insurance/${city.slug}`}
+                                        className="block text-sm text-gray-600 hover:text-gold hover:bg-gold/5 rounded px-2 py-1 transition-colors"
+                                      >
+                                        {city.name}
+                                      </Link>
+                                    ))}
+                                  </div>
+                                </div>
+                                {/* Industry Focus */}
+                                <div>
+                                  <h4 className="font-poppins text-xs font-bold text-gold uppercase tracking-wider mb-3 border-b border-gold/20 pb-2">
+                                    Industry Focus
+                                  </h4>
+                                  <div className="space-y-1">
+                                    {INDUSTRIES.map(ind => (
+                                      <Link
+                                        key={ind.slug}
+                                        href={`/commercial-auto-insurance/${ind.slug}`}
+                                        className="block text-sm text-gray-600 hover:text-gold hover:bg-gold/5 rounded px-2 py-1 transition-colors"
+                                      >
+                                        {ind.name}
+                                      </Link>
+                                    ))}
+                                  </div>
+                                </div>
+                              </div>
+                              {/* Bottom CTA */}
+                              <div className="mt-5 pt-4 border-t border-gray-100 flex items-center justify-between">
+                                <p className="text-xs text-gray-500">25 city pages · 12 industry pages</p>
+                                <Link href="/commercial-auto-insurance" className="text-sm font-semibold text-gold hover:underline">
+                                  View All →
+                                </Link>
+                              </div>
+                            </div>
+                          )}
+                        </div>
                       ))}
                     </div>
                   )}
@@ -121,7 +203,7 @@ export default function Header() {
 
           {/* Mobile nav */}
           {mobileMenuOpen && (
-            <nav className="lg:hidden mt-4 pb-4 border-t border-gray-200 pt-4">
+            <nav className="lg:hidden mt-4 pb-4 border-t border-gray-200 pt-4 max-h-[80vh] overflow-y-auto">
               {navigation.map((item) => (
                 <div key={item.name}>
                   <Link
@@ -134,14 +216,73 @@ export default function Header() {
                   {item.children && (
                     <div className="pl-4">
                       {item.children.map((child) => (
-                        <Link
-                          key={child.name}
-                          href={child.href}
-                          className="block py-2 text-gray-500 hover:text-gold transition-colors text-sm"
-                          onClick={() => setMobileMenuOpen(false)}
-                        >
-                          {child.name}
-                        </Link>
+                        <div key={child.name}>
+                          {child.hasMega ? (
+                            <>
+                              <button
+                                className="flex items-center justify-between w-full py-2 text-gray-500 hover:text-gold transition-colors text-sm"
+                                onClick={() => setMobileCommAutoOpen(!mobileCommAutoOpen)}
+                              >
+                                <span>{child.name}</span>
+                                <svg className={`w-3 h-3 transition-transform ${mobileCommAutoOpen ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                </svg>
+                              </button>
+                              {mobileCommAutoOpen && (
+                                <div className="pl-4 pb-2">
+                                  <Link
+                                    href="/commercial-auto-insurance"
+                                    className="block py-1.5 text-gold font-medium text-sm"
+                                    onClick={() => setMobileMenuOpen(false)}
+                                  >
+                                    Overview →
+                                  </Link>
+                                  <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mt-2 mb-1">Nassau County</p>
+                                  {nassauCities.map(city => (
+                                    <Link
+                                      key={city.slug}
+                                      href={`/commercial-auto-insurance/${city.slug}`}
+                                      className="block py-1 text-gray-500 hover:text-gold text-xs"
+                                      onClick={() => setMobileMenuOpen(false)}
+                                    >
+                                      {city.name}
+                                    </Link>
+                                  ))}
+                                  <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mt-3 mb-1">Suffolk County</p>
+                                  {suffolkCities.map(city => (
+                                    <Link
+                                      key={city.slug}
+                                      href={`/commercial-auto-insurance/${city.slug}`}
+                                      className="block py-1 text-gray-500 hover:text-gold text-xs"
+                                      onClick={() => setMobileMenuOpen(false)}
+                                    >
+                                      {city.name}
+                                    </Link>
+                                  ))}
+                                  <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mt-3 mb-1">Industry Focus</p>
+                                  {INDUSTRIES.map(ind => (
+                                    <Link
+                                      key={ind.slug}
+                                      href={`/commercial-auto-insurance/${ind.slug}`}
+                                      className="block py-1 text-gray-500 hover:text-gold text-xs"
+                                      onClick={() => setMobileMenuOpen(false)}
+                                    >
+                                      {ind.name}
+                                    </Link>
+                                  ))}
+                                </div>
+                              )}
+                            </>
+                          ) : (
+                            <Link
+                              href={child.href}
+                              className="block py-2 text-gray-500 hover:text-gold transition-colors text-sm"
+                              onClick={() => setMobileMenuOpen(false)}
+                            >
+                              {child.name}
+                            </Link>
+                          )}
+                        </div>
                       ))}
                     </div>
                   )}
