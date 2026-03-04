@@ -40,18 +40,20 @@ export async function generateStaticParams() {
     const postParams = posts.map((post) => ({ slug: [post.slug] }));
 
     // Service sub-pages → two segments
-    const pages = await getAllPages();
-    const pathMap = await getPagePathMap();
+    // NOTE: WP page fetches temporarily disabled to avoid build timeouts.
+    // Uncomment when WP server is stable. Pages still render on-demand via ISR.
+    // const pages = await getAllPages();
+    // const pathMap = await getPagePathMap();
     const pageParams: Array<{ slug: string[] }> = [];
 
-    for (const page of pages) {
-        const fullPath = pathMap.get(page.id);
-        if (!fullPath) continue;
-        const segments = fullPath.split('/').filter(Boolean);
-        if (segments.length === 2 && SERVICE_PARENTS.has(segments[0])) {
-            pageParams.push({ slug: segments });
-        }
-    }
+    // for (const page of pages) {
+    //     const fullPath = pathMap.get(page.id);
+    //     if (!fullPath) continue;
+    //     const segments = fullPath.split('/').filter(Boolean);
+    //     if (segments.length === 2 && SERVICE_PARENTS.has(segments[0])) {
+    //         pageParams.push({ slug: segments });
+    //     }
+    // }
 
     // pSEO pages → two segments under commercial-auto-insurance
     const pseoParams = getAllPSEOSlugs().map((s) => ({ slug: ['commercial-auto-insurance', s] }));
