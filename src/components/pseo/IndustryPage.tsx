@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { IndustryData, COVERAGE_TYPES } from '@/lib/pseo-commercial-auto';
-import { InsuranceServiceSchema, BreadcrumbSchema } from '@/components/StructuredData';
+import { InsuranceServiceSchema, BreadcrumbSchema, WebPageSchema, AggregateRatingSchema } from '@/components/StructuredData';
+import TLDRBlock from '@/components/TLDRBlock';
+import QuoteFormEmbed from '@/components/QuoteFormEmbed';
 
 export default function IndustryPage({ industry }: { industry: IndustryData }) {
     return (
@@ -15,35 +17,55 @@ export default function IndustryPage({ industry }: { industry: IndustryData }) {
                 { name: 'Commercial Auto Insurance', href: '/commercial-auto-insurance' },
                 { name: industry.name, href: `/commercial-auto-insurance/${industry.slug}` },
             ]} />
+            <WebPageSchema
+                url={`/commercial-auto-insurance/${industry.slug}`}
+                title={`${industry.name} Commercial Auto Insurance — Long Island`}
+                description={`Commercial auto insurance for ${industry.name.toLowerCase()} on Long Island. Compare 50+ carriers. Updated March 2026.`}
+            />
+            <AggregateRatingSchema />
 
-            {/* Hero */}
+            {/* Hero — 2 columns: text left, form right */}
             <section className="bg-navy py-16 md:py-20">
                 <div className="container-custom">
-                    <nav className="mb-4 flex items-center gap-2 text-sm">
-                        <Link href="/commercial-auto-insurance" className="text-gray-400 hover:text-gold transition-colors">Commercial Auto Insurance</Link>
-                        <span className="text-gray-500">/</span>
-                        <span className="text-gold">{industry.name}</span>
-                    </nav>
-                    <h1 className="font-poppins text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 max-w-4xl">
-                        {industry.headline}
-                    </h1>
-                    <p className="text-gray-300 text-lg max-w-3xl">
-                        {industry.description}
-                    </p>
-                    <div className="flex gap-4 mt-8 flex-wrap">
-                        <Link href="/quote" className="btn-primary">{industry.ctaText}</Link>
-                        <a href="tel:631-659-0189" className="btn-outline">Call (631) 659-0189</a>
+                    <div className="grid lg:grid-cols-2 gap-10 items-start">
+                        <div>
+                            <nav className="mb-4 flex items-center gap-2 text-sm">
+                                <Link href="/commercial-auto-insurance" className="text-gray-400 hover:text-gold transition-colors">Commercial Auto Insurance</Link>
+                                <span className="text-gray-500">/</span>
+                                <span className="text-gold">{industry.name}</span>
+                            </nav>
+                            <h1 className="font-poppins text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
+                                {industry.headline}
+                            </h1>
+                            <p className="text-gray-300 text-lg">
+                                {industry.description}
+                            </p>
+                            <div className="flex gap-4 mt-8 flex-wrap">
+                                <Link href="/quote" className="btn-primary">{industry.ctaText}</Link>
+                                <a href="tel:631-659-0189" className="btn-outline">Call (631) 659-0189</a>
+                            </div>
+                        </div>
+                        <div className="hidden lg:block">
+                            <QuoteFormEmbed variant="hero" />
+                        </div>
                     </div>
                 </div>
             </section>
 
-            {/* Vehicle Types */}
-            <section className="py-16 md:py-20">
+            {/* TL;DR Citation Block */}
+            <section className="py-8">
+                <div className="container-custom">
+                    <TLDRBlock content={industry.tldr} />
+                </div>
+            </section>
+
+            {/* Vehicle Types + Coverage Needs */}
+            <section className="py-12 md:py-16">
                 <div className="container-custom">
                     <div className="grid lg:grid-cols-2 gap-12">
                         <div>
                             <h2 className="font-poppins text-2xl md:text-3xl font-bold text-navy mb-6">
-                                Vehicles We Cover
+                                What Vehicles Does FHIA Cover for {industry.name}?
                             </h2>
                             <p className="text-gray-600 mb-6">
                                 Our {industry.name.toLowerCase()} commercial auto policies cover all the vehicle types your operation depends on:
@@ -61,7 +83,7 @@ export default function IndustryPage({ industry }: { industry: IndustryData }) {
                         </div>
                         <div>
                             <h2 className="font-poppins text-2xl md:text-3xl font-bold text-navy mb-6">
-                                Coverage Your Fleet Needs
+                                What Coverage Does Your {industry.name} Fleet Need?
                             </h2>
                             <p className="text-gray-600 mb-6">
                                 {industry.name} operations have unique insurance requirements. Here&#39;s what we recommend:
@@ -84,10 +106,10 @@ export default function IndustryPage({ industry }: { industry: IndustryData }) {
             </section>
 
             {/* Pain Points / Challenges */}
-            <section className="py-16 bg-gray-50">
+            <section className="py-12 bg-gray-50">
                 <div className="container-custom">
                     <h2 className="font-poppins text-2xl md:text-3xl font-bold text-navy mb-3">
-                        Common {industry.name} Insurance Challenges
+                        What Insurance Challenges Do {industry.name} Face?
                     </h2>
                     <p className="text-gray-600 mb-10 max-w-3xl">
                         We&#39;ve worked with {industry.name.toLowerCase()} businesses across Long Island and understand the specific challenges you face:
@@ -113,10 +135,10 @@ export default function IndustryPage({ industry }: { industry: IndustryData }) {
             </section>
 
             {/* Standard Coverage Grid */}
-            <section className="py-16">
+            <section className="py-12 md:py-16">
                 <div className="container-custom">
                     <h2 className="font-poppins text-2xl md:text-3xl font-bold text-navy mb-3">
-                        Core Commercial Auto Coverages
+                        What Are the Core Commercial Auto Coverages?
                     </h2>
                     <p className="text-gray-600 mb-10 max-w-3xl">
                         In addition to industry-specific coverages, every {industry.name.toLowerCase()} policy includes these essential protections:
@@ -133,18 +155,18 @@ export default function IndustryPage({ industry }: { industry: IndustryData }) {
             </section>
 
             {/* Why FHIA */}
-            <section className="py-16 bg-gray-50">
+            <section className="py-12 bg-gray-50">
                 <div className="container-custom">
                     <div className="grid lg:grid-cols-5 gap-12">
                         <div className="lg:col-span-3">
                             <h2 className="font-poppins text-2xl md:text-3xl font-bold text-navy mb-6">
-                                Why {industry.name} Choose FHIA
+                                Why Do {industry.name} Choose FHIA?
                             </h2>
                             <div className="space-y-4">
                                 {[
                                     { title: 'Industry-Specific Expertise', desc: `We insure ${industry.name.toLowerCase()} operations across Long Island and understand the unique risks your fleet faces.` },
                                     { title: 'In-House Underwriting', desc: 'Our exclusive commercial auto program means faster approvals and coverage designed around how your business operates.' },
-                                    { title: 'Multi-Carrier Comparison', desc: 'We shop your coverage across top-rated carriers to find the best rate — saving our clients up to 30%.' },
+                                    { title: '50+ Carrier Comparison', desc: 'We shop your coverage across top-rated carriers to find the best rate \u2014 saving our clients up to 30%.' },
                                     { title: 'Licensed in 5 States', desc: 'NY, NJ, CT, PA & FL. If your fleet crosses state lines, we have you covered.' },
                                 ].map((item) => (
                                     <div key={item.title} className="flex gap-4">
@@ -164,7 +186,7 @@ export default function IndustryPage({ industry }: { industry: IndustryData }) {
                         <div className="lg:col-span-2">
                             <div className="bg-navy rounded-xl p-6 sticky top-24">
                                 <h3 className="font-poppins text-xl font-bold text-white mb-3">{industry.ctaText}</h3>
-                                <p className="text-gray-300 text-sm mb-4">Compare quotes from multiple carriers. Our local agents find you the best coverage at the best price.</p>
+                                <p className="text-gray-300 text-sm mb-4">Compare quotes from 50+ carriers. Our local agents find you the best coverage at the best price.</p>
                                 <Link href="/quote" className="btn-primary block text-center mb-3">{industry.ctaText}</Link>
                                 <Link href="/contact-us" className="btn-outline block text-center text-sm">Talk to an Agent</Link>
                                 <div className="mt-6 pt-4 border-t border-white/10">
@@ -178,10 +200,10 @@ export default function IndustryPage({ industry }: { industry: IndustryData }) {
             </section>
 
             {/* Local Service Areas */}
-            <section className="py-16">
+            <section className="py-12 md:py-16">
                 <div className="container-custom">
                     <h2 className="font-poppins text-2xl md:text-3xl font-bold text-navy mb-8">
-                        Serving {industry.name} Across Long Island
+                        Where Does FHIA Serve {industry.name} on Long Island?
                     </h2>
                     <div className="grid md:grid-cols-2 gap-8">
                         <div>
@@ -216,21 +238,8 @@ export default function IndustryPage({ industry }: { industry: IndustryData }) {
                 </div>
             </section>
 
-            {/* CTA */}
-            <section className="bg-gold py-12">
-                <div className="container-custom text-center">
-                    <h2 className="font-poppins text-2xl md:text-3xl font-bold text-navy mb-4">
-                        Protect Your {industry.name} Fleet Today
-                    </h2>
-                    <p className="text-navy/80 mb-6 max-w-2xl mx-auto">
-                        Compare quotes from multiple carriers and save up to 30% on your commercial auto insurance. No obligation, no pressure.
-                    </p>
-                    <div className="flex justify-center gap-4 flex-wrap">
-                        <Link href="/quote" className="btn-secondary">{industry.ctaText}</Link>
-                        <a href="tel:631-659-0189" className="bg-white text-navy font-semibold px-6 py-3 rounded-lg hover:bg-gray-100 transition-all duration-300">Call (631) 659-0189</a>
-                    </div>
-                </div>
-            </section>
+            {/* Bottom Quote Form */}
+            <QuoteFormEmbed variant="standalone" />
         </>
     );
 }

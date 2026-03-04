@@ -239,6 +239,66 @@ export function WebSiteSchema() {
     );
 }
 
+// ── WebPage schema with dates + speakable ──
+
+interface WebPageSchemaProps {
+    url: string;
+    title: string;
+    description: string;
+}
+
+export function WebPageSchema({ url, title, description }: WebPageSchemaProps) {
+    const schema = {
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: title,
+        description,
+        url: `https://fhia.net${url}`,
+        datePublished: '2025-06-15',
+        dateModified: '2026-03-04',
+        speakable: {
+            '@type': 'SpeakableSpecification',
+            cssSelector: ['.tldr-citation-block'],
+        },
+        author: {
+            '@type': 'Organization',
+            name: 'First Heritage Insurance Agency',
+            url: 'https://fhia.net',
+        },
+    };
+
+    return (
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+    );
+}
+
+// ── AggregateRating schema (standalone) ──
+
+export function AggregateRatingSchema() {
+    const schema = {
+        '@context': 'https://schema.org',
+        '@type': 'InsuranceAgency',
+        name: 'First Heritage Insurance Agency',
+        url: 'https://fhia.net',
+        aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: '4.9',
+            reviewCount: '1500',
+            bestRating: '5',
+        },
+    };
+
+    return (
+        <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
+    );
+}
+
 // ── Organization schema ──
 
 export function OrganizationSchema() {
