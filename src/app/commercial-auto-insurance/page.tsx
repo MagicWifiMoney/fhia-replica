@@ -1,22 +1,11 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
+import { INDUSTRIES, CITIES } from '@/lib/pseo-commercial-auto';
 
 export const metadata: Metadata = {
   title: 'Commercial Auto Insurance Long Island | FHIA',
-  description: 'Exclusive commercial auto coverage built for New York fleets. Tailored protection, faster approvals, smarter underwriting.',
+  description: 'Exclusive commercial auto coverage built for New York fleets. Tailored protection, faster approvals, smarter underwriting. Browse by industry, vehicle type, or coverage.',
 };
-
-const industries = [
-  'Local Delivery Services',
-  'Unionized Transportation',
-  'Beverage and Food Distributors',
-  'Plumbing, HVAC, and Construction Fleets',
-  'Private Sanitation and Carting Fleets',
-  'Security and Patrol Firms',
-  'Moving Companies',
-  'Building Supply Companies',
-  '3 to 100+ Vehicle Fleets',
-];
 
 const benefits = [
   {
@@ -36,6 +25,65 @@ const benefits = [
     description: 'We know Long Island roads, regulations, and businesses. That local knowledge makes a difference.',
   },
 ];
+
+// Group industries by category for the hub page
+const INDUSTRY_CATEGORIES: { label: string; slugs: string[] }[] = [
+  {
+    label: 'Trades & Contractors',
+    slugs: [
+      'construction-fleets',
+      'hvac-contractors',
+      'plumbing-companies',
+      'electrical-contractors',
+      'landscaping-companies',
+      'cleaning-services',
+      'contractor-vehicle-insurance',
+    ],
+  },
+  {
+    label: 'Delivery & Transport',
+    slugs: [
+      'delivery-courier',
+      'trucking-companies',
+      'moving-companies',
+      'food-service-catering',
+      'tow-truck-operators',
+      'medical-transport',
+      'last-mile-delivery-insurance',
+      'owner-operator-truck-insurance',
+    ],
+  },
+  {
+    label: 'Fleet Size',
+    slugs: [
+      'small-business-fleet-insurance',
+      'commercial-fleet-insurance',
+    ],
+  },
+  {
+    label: 'Vehicle Type',
+    slugs: [
+      'box-truck-insurance',
+      'dump-truck-insurance',
+      'food-truck-insurance',
+      'work-van-insurance',
+    ],
+  },
+  {
+    label: 'Coverage Types',
+    slugs: [
+      'hired-non-owned-auto-insurance',
+      'employee-driving-insurance',
+      'motor-truck-cargo-insurance',
+      'commercial-auto-umbrella-insurance',
+      'trailer-interchange-insurance',
+      'rental-reimbursement-commercial-auto',
+      'physical-damage-commercial-auto',
+    ],
+  },
+];
+
+const industryMap = new Map(INDUSTRIES.map((i) => [i.slug, i]));
 
 export default function CommercialAutoPage() {
   return (
@@ -79,24 +127,79 @@ export default function CommercialAutoPage() {
         </div>
       </section>
 
-      {/* Industries Section */}
+      {/* Industries by Category */}
       <section className="py-20 bg-gray-50">
         <div className="container-custom">
           <div className="max-w-3xl mx-auto text-center mb-12">
             <h2 className="font-poppins text-3xl font-bold text-navy mb-4">
-              Industries We Serve
+              Find Coverage for Your Industry
             </h2>
             <p className="text-gray-600">
-              From small local businesses to large fleets, we have the expertise to protect your vehicles and drivers.
+              From single work vans to 100+ vehicle fleets, we have specialized coverage for every type of commercial vehicle operation on Long Island.
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-4 max-w-4xl mx-auto">
-            {industries.map((industry) => (
-              <div key={industry} className="flex items-center gap-3 bg-white p-4 rounded-lg shadow-sm">
-                <svg className="w-5 h-5 text-gold flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-                <span className="text-navy">{industry}</span>
+
+          <div className="space-y-12">
+            {INDUSTRY_CATEGORIES.map((category) => (
+              <div key={category.label}>
+                <h3 className="font-poppins text-xl font-bold text-navy mb-4 border-b-2 border-gold pb-2">
+                  {category.label}
+                </h3>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                  {category.slugs.map((slug) => {
+                    const industry = industryMap.get(slug);
+                    if (!industry) return null;
+                    return (
+                      <Link
+                        key={slug}
+                        href={`/commercial-auto-insurance/${slug}`}
+                        className="group bg-white border border-gray-200 rounded-lg p-5 hover:shadow-md hover:border-gold transition-all"
+                      >
+                        <h4 className="font-poppins font-semibold text-navy group-hover:text-gold transition-colors mb-2">
+                          {industry.name}
+                        </h4>
+                        <p className="text-gray-500 text-sm line-clamp-2">
+                          {industry.description.slice(0, 100)}...
+                        </p>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* City Pages Section */}
+      <section className="py-20">
+        <div className="container-custom">
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <h2 className="font-poppins text-3xl font-bold text-navy mb-4">
+              Commercial Auto Insurance by Location
+            </h2>
+            <p className="text-gray-600">
+              We serve businesses across Nassau and Suffolk counties. Find coverage specific to your area.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {(['Nassau', 'Suffolk'] as const).map((county) => (
+              <div key={county}>
+                <h3 className="font-poppins text-xl font-bold text-navy mb-4 border-b-2 border-gold pb-2">
+                  {county} County
+                </h3>
+                <div className="grid grid-cols-2 gap-2">
+                  {CITIES.filter((c) => c.county === county).map((city) => (
+                    <Link
+                      key={city.slug}
+                      href={`/commercial-auto-insurance/${city.slug}`}
+                      className="text-gray-600 hover:text-gold transition-colors text-sm py-1"
+                    >
+                      {city.name}, NY
+                    </Link>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
